@@ -57,6 +57,13 @@ def add_city():
     return redirect(url_for('index'))
 
 
+@app.route('/delete/<city_id>', methods=['POST'])
+def delete(city_id):
+    city = City.query.filter_by(id=city_id).first()
+    db.session.delete(city)
+    db.session.commit()
+    return redirect('/')
+
 if __name__ == '__main__':
     if len(sys.argv) > 1:
         arg_host, arg_port = sys.argv[1].split(':')
