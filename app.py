@@ -62,8 +62,11 @@ def add_city():
         flash("The city doesn't exist!")
         return redirect(url_for('index'))
     else:
-        db.session.add(City(id=city['id'], name=city['name']))
-        db.session.commit()
+        if City.query.filter_by(id=city['id']).first() is not None:
+            flash('The city has already been added to the list!')
+        else:
+            db.session.add(City(id=city['id'], name=city['name']))
+            db.session.commit()
         return redirect(url_for('index'))
 
 
