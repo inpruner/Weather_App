@@ -9,12 +9,15 @@ import requests
 import sys
 import os
 
+
+basedir = os.path.abspath(os.path.dirname(__file__))
 app = Flask(__name__)
 app.secret_key = os.urandom(16)
 dialect = 'sqlite:///'
 db_path = '\\db\\weather.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_DATABASE_URI'] = dialect + app.root_path + db_path
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL') or \
+        dialect + app.root_path + db_path
 db = SQLAlchemy(app)
 
 
