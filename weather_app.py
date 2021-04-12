@@ -35,7 +35,6 @@ def get_weather(city_name):
               'units': 'metric',
               'appid': 'ccd0fe135c3a9971a1844fe5364d210c'}
     res = requests.get(url, params=params).json()
-    print(res)
     if res['cod'] in ['400', '404']:
         return None
     else:
