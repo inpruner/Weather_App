@@ -16,8 +16,10 @@ app.secret_key = os.urandom(16)
 dialect = 'sqlite:///'
 db_path = '\\db\\weather.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL') or \
-        dialect + app.root_path + db_path
+uri = os.getenv("DATABASE_URL")
+if uri is not None:
+    uri = uri.replace("postgres://", "postgresql://", 1)
+app.config['SQLALCHEMY_DATABASE_URI'] = uri or dialect + app.root_path + db_path
 db = SQLAlchemy(app)
 
 
