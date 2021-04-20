@@ -19,7 +19,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 uri = os.getenv("DATABASE_URL")
 if uri is not None:
     uri = uri.replace("postgres://", "postgresql://", 1)
-app.config['SQLALCHEMY_DATABASE_URI'] = uri or dialect + app.root_path + db_path
+app.config['SQLALCHEMY_DATABASE_URI'] = uri or (dialect + app.root_path + db_path)
 db = SQLAlchemy(app)
 
 
